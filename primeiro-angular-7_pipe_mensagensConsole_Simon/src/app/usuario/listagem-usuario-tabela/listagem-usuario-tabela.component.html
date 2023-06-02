@@ -1,0 +1,34 @@
+<mat-table [dataSource]="dataSource">
+    <mat-header-row *matHeaderRowDef="Colunas"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: Colunas;"></mat-row>
+
+    <ng-container matColumnDef='{{coluna}}' *ngFor="let coluna of Colunas">
+        <mat-header-cell *matHeaderCellDef>{{coluna}}</mat-header-cell>
+        <mat-cell *matCellDef="let item">
+            <div *ngIf="coluna != 'ações' && coluna != 'cpf' && coluna != 'telefone'">{{item[coluna]}}</div>
+            <div *ngIf="coluna == 'cpf'">{{item.cpf | cpf}}</div>
+            <div *ngIf="coluna == 'telefone'">{{item.telefone | telefone}}</div>
+            <div *ngIf="coluna == 'ações'">
+                <button mat-button [routerLink]="['/editausuario', item.id]"><mat-icon>edit</mat-icon></button>
+                <button mat-button (click)="excluir(item)"><mat-icon>delete</mat-icon></button>
+            </div>
+        </mat-cell>
+    </ng-container>
+</mat-table>
+<!-- <mat-card fxFlex="20" class="card-usuario" *ngFor="let usuario of usuarios">
+    <mat-card-header>
+    <mat-card-title>{{usuario.nome | titlecase}}</mat-card-title>
+    <mat-card-subtitle *ngIf="usuario.cpf.length > 0">CPF: {{usuario.cpf | cpf}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+    Professor em.... Tem {{usuario.idade}} anos
+    </mat-card-content>
+    <mat-card-actions>
+    <button mat-button [routerLink]="['/editausuario', usuario.id]">
+        <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-button (click)="excluir(usuario)">
+        <mat-icon>delete</mat-icon>
+    </button>
+    </mat-card-actions>
+</mat-card> -->  
